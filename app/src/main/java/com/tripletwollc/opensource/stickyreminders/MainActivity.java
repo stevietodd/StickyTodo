@@ -1,4 +1,4 @@
-package com.tripletwollc.opensource.stickyreminders;
+package com.github.stevietodd.stickytodo;
 
 import android.annotation.TargetApi;
 import android.app.NotificationChannel;

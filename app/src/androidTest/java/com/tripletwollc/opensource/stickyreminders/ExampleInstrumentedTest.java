@@ -1,4 +1,4 @@
-package com.tripletwollc.opensource.stickyreminders;
+package com.github.stevietodd.stickytodo;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.tripletwollc.opensource.stickyreminders", appContext.getPackageName());
+        assertEquals("com.github.stevietodd.stickytodo", appContext.getPackageName());
     }
 }

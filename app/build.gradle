@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.tripletwollc.opensource.stickyreminders"
+        applicationId "com.github.stevietodd.stickytodo"
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
