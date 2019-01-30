@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
@@ -46,11 +47,20 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 	// stores and recycles views as they are scrolled off screen
 	public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 		CheckBox chkTask;
+		ImageButton imgBtnDelete;
 
 		ViewHolder(View itemView) {
 			super(itemView);
 			chkTask = itemView.findViewById(R.id.chkTask);
+			imgBtnDelete = itemView.findViewById(R.id.imgBtnDelete);
 			itemView.setOnClickListener(this);
+			imgBtnDelete.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					mData.remove(getAdapterPosition());
+					notifyItemRemoved(getAdapterPosition());
+				}
+			});
 		}
 
 		@Override

@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 		});
 
 		createNotificationChannel();
-		//TODO: need these 3 lines?
 		Intent intent = new Intent(this, MainActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -110,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 				.setContentText("StickyTodo")
 				.setStyle(new NotificationCompat.BigTextStyle()
 						.bigText(String.join("\n", tasks)))
-				.setPriority(NotificationCompat.PRIORITY_DEFAULT)
+				.setPriority(NotificationCompat.PRIORITY_MAX)
 				.setOngoing(true)
 				.setContentIntent(pendingIntent)
 				.setOnlyAlertOnce(true);
