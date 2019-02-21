@@ -82,9 +82,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 					public void onClick(DialogInterface dialog, int whichButton) {
 						// Do something with value!
 						tasks.add(input.getText().toString());
-						notificationBuilder.setStyle(new NotificationCompat.BigTextStyle()
-								.bigText(String.join("\n", tasks)));
-						notificationManager.notify(22, notificationBuilder.build());
+						updateNotificationText();
 					}
 				});
 
@@ -149,8 +147,8 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 	}
 
 	@Override
-	public void onItemClick(View view, int position) {
-		Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+	public void onItemDeleteButtonClick(int position) {
+		updateNotificationText();
 	}
 
 	private void createNotificationChannel() {
@@ -181,5 +179,12 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 		} catch (Exception e) {
 			System.out.print(e.getMessage());
 		}
+	}
+
+	protected void updateNotificationText()
+	{
+		notificationBuilder.setStyle(new NotificationCompat.BigTextStyle()
+				.bigText(String.join("\n", tasks)));
+		notificationManager.notify(22, notificationBuilder.build());
 	}
 }

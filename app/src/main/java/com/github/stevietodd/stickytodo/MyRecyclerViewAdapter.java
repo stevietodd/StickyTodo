@@ -45,7 +45,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
 
 	// stores and recycles views as they are scrolled off screen
-	public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+	public class ViewHolder extends RecyclerView.ViewHolder {
 		CheckBox chkTask;
 		ImageButton imgBtnDelete;
 
@@ -53,19 +53,14 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 			super(itemView);
 			chkTask = itemView.findViewById(R.id.chkTask);
 			imgBtnDelete = itemView.findViewById(R.id.imgBtnDelete);
-			itemView.setOnClickListener(this);
 			imgBtnDelete.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					mData.remove(getAdapterPosition());
 					notifyItemRemoved(getAdapterPosition());
+					mClickListener.onItemDeleteButtonClick(getAdapterPosition());
 				}
 			});
-		}
-
-		@Override
-		public void onClick(View view) {
-			if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
 		}
 	}
 
@@ -81,6 +76,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
 	// parent activity will implement this method to respond to click events
 	public interface ItemClickListener {
-		void onItemClick(View view, int position);
+		void onItemDeleteButtonClick(int position);
 	}
 }
