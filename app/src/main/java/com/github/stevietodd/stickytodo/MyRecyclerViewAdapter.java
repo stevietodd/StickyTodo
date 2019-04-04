@@ -56,9 +56,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 			imgBtnDelete.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					mData.remove(getAdapterPosition());
-					notifyItemRemoved(getAdapterPosition());
-					mClickListener.onItemDeleteButtonClick(getAdapterPosition());
+					int pos = getAdapterPosition();
+					String task = mData.get(pos);
+					mData.remove(pos);
+					notifyItemRemoved(pos);
+					mClickListener.onItemDeleteButtonClick(pos, task);
 				}
 			});
 		}
@@ -76,6 +78,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
 	// parent activity will implement this method to respond to click events
 	public interface ItemClickListener {
-		void onItemDeleteButtonClick(int position);
+		void onItemDeleteButtonClick(int position, String text);
 	}
 }

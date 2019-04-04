@@ -35,11 +35,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
 
 	MyRecyclerViewAdapter adapter;
 	List<String> tasks;
+	Stack<String> undos;
 	NotificationCompat.Builder notificationBuilder;
 	NotificationManagerCompat notificationManager;
 
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 		setSupportActionBar(toolbar);
 
 		tasks = new ArrayList<>();
+		undos = new Stack<>();
 
 		// try to read in existing tasks from file
 		try {
@@ -80,8 +83,9 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
 				alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
-						// Do something with value!
+						// add the task and clear undos
 						tasks.add(input.getText().toString());
+						undos.clear();
 						updateNotificationText();
 					}
 				});
@@ -140,6 +144,28 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
 		//noinspection SimplifiableIfStatement
 		if (id == R.id.action_settings) {
+			// todo: make this do something later
+			return true;
+		}
+
+		if (id == R.id.action_undo) {
+			if (undos.empty()) {
+				return true;
+			}
+
+			// find the position and the text
+			String undo = undos.pop();
+			String tokens[] = undo.split(",");
+
+			// add it back to the task list
+			tasks.add(Integer.parseInt(tokens[0]), tokens[1]);
+
+			// update the recyclerview
+			adapter.notifyDataSetChanged();
+
+			// update the notification
+			updateNotificationText();
+
 			return true;
 		}
 
@@ -147,7 +173,10 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 	}
 
 	@Override
-	public void onItemDeleteButtonClick(int position) {
+	public void onItemDeleteButtonClick(int position, String text) {
+		// add data to undo list, just in case
+		undos.push(position + "," + text);
+
 		updateNotificationText();
 	}
 
